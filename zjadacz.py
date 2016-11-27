@@ -49,11 +49,11 @@ def rusz_zjadaczem(zmiana_x, zmiana_y):
 
 # wyswietlanie punktow
 def wyswietl_punkty(ilosc_punktow):
-    pygame.draw.rect(screen, (255, 255, 255), (890, 2, 910, margines_bledu), 0)  # tlo dla punktow - zakrywa nam poprzedni text
+    pygame.draw.rect(screen, (255, 255, 255), (rozmiar_planszy_x - 90, 2, rozmiar_planszy_x, 15), 0)  # tlo dla punktow - zakrywa nam poprzedni text
     pygame.font.init()  # inicjujemy czcionki
     font = pygame.font.Font(None, 24)  # wybieramy domyslna czcionke o rozmiarze 24
     text = font.render("Punkty: %s" % ilosc_punktow, 1, kolor_tekstu)  # chcemy wyswietlic zmienna punkty na ekranie
-    screen.blit(text, (900,
+    screen.blit(text, (rozmiar_planszy_x - 90,
                        2))  # zamiast odswiezania ekranu uzywamy funkcji blit, jej zmienna jest pozycja w ktorej chcemy zamiescic tekst
 
 
@@ -63,6 +63,7 @@ pygame.display.set_caption('Zjadacz')  # ustawiamy etykietke okna
 screen.fill(kolor_ekranu)  # wypelniamy ekran kolorem zielonym
 pokaz_jedzenie()  # pokazujemy pierwsza kropke do zjedzenia
 pygame.display.flip()  # odswiezamy ekran, zeby zobaczyc zmiany, ktore wprowadzilismy powyzej
+wyswietl_punkty(punkty) #wyswietlenie poczatkowej liczby punktow
 rusz_zjadaczem(0, 0) # wyswietlamy zjadacza przed rozpoczeciem
 
 # obsluga programu za pomoca klawiatury - tu mowimy programowi co ma zrobic jesli zostanie nacisniety ktorys przycisk
