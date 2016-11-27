@@ -2,6 +2,8 @@
 import os, sys
 import pygame
 import random
+import time
+import calendar
 
 # poczatkowa pozycja zjadacza na ekranie
 pozycja_zjadacza_x = 30
@@ -20,6 +22,8 @@ kolor_tla_tekstu = (255, 255, 255)
 srednica_zjadacza = 15
 punkty = 0
 
+czas_rozpoczecia = int(time.time())
+czas_gry = 0
 
 # funkcja, ktora sprawi, ze zobaczymy w losowym miejscu jedzenie.
 # Dzieki temu ze rozwiazanie jest zdefiniowane jako funkcja, bedziemy mogli uzywac go wiele razy, bez kopiowania kodu
@@ -57,6 +61,19 @@ def wyswietl_punkty(ilosc_punktow):
     screen.blit(text, (rozmiar_planszy_x - 90,
                        2))  # zamiast odswiezania ekranu uzywamy funkcji blit, jej zmienna jest pozycja w ktorej chcemy zamiescic tekst
 
+def wyswietl_czas():
+    global czas_gry
+    tymczasowy_czas_gry = (int(time.time()) - czas_rozpoczecia)
+    if czas_gry != tymczasowy_czas_gry:
+        czas_gry = tymczasowy_czas_gry
+        pygame.draw.rect(screen, kolor_tla_tekstu, (rozmiar_planszy_x - 90, 18, rozmiar_planszy_x, 25),
+                         0)  # tlo dla punktow - zakrywa nam poprzedni text
+        pygame.font.init()  # inicjujemy czcionki
+        font = pygame.font.Font(None, 24)  # wybieramy domyslna czcionke o rozmiarze 24
+        text = font.render("Czas: %s" % czas_gry, 1, kolor_tekstu)  # chcemy wyswietlic zmienna punkty na ekranie
+        # zamiast odswiezania ekranu uzywamy funkcji blit, jej zmienna jest pozycja w ktorej chcemy zamiescic tekst
+        screen.blit(text, (rozmiar_planszy_x - 90, 17))
+        pygame.display.flip()  # odswiezamy ekran, zeby zobaczyc zmiany, ktore wprowadzilismy powyzej
 
 # przygotowujemy poczatkowy ekran gry:
 screen = pygame.display.set_mode((rozmiar_planszy_x, rozmiar_planszy_y))  # przygotowanie nowego ekranu o wymiarach 600x600
@@ -65,12 +82,14 @@ screen.fill(kolor_ekranu)  # wypelniamy ekran kolorem zielonym
 pokaz_jedzenie()  # pokazujemy pierwsza kropke do zjedzenia
 pygame.display.flip()  # odswiezamy ekran, zeby zobaczyc zmiany, ktore wprowadzilismy powyzej
 wyswietl_punkty(punkty) #wyswietlenie poczatkowej liczby punktow
+wyswietl_czas()
 rusz_zjadaczem(0, 0) # wyswietlamy zjadacza przed rozpoczeciem
 
 # obsluga programu za pomoca klawiatury - tu mowimy programowi co ma zrobic jesli zostanie nacisniety ktorys przycisk
 running = True
 while running:
     wyswietl_punkty(punkty)
+    wyswietl_czas()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
