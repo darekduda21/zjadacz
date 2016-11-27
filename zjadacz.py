@@ -7,6 +7,10 @@ import random
 pozycja_zjadacza_x = 30
 pozycja_zjadacza_y = 30
 
+#rozmiar planszy
+rozmiar_planszy_x = 800
+rozmiar_planszy_y = 800
+
 # definicja kolorow w skali rbg
 kolor_ekranu = (10, 150, 10)
 kolor_zjadacza = (255, 224, 0)
@@ -19,9 +23,9 @@ punkty = 0
 def pokaz_jedzenie():
     global pozycja_jedzenia_x
     global pozycja_jedzenia_y
-    pozycja_jedzenia_x = random.randint(5, 995)
-    pozycja_jedzenia_y = random.randint(15, 795)
-    kolor_kulki = (200, 0, 0)  # mozna sprawic, by kolor kulki byl losowy
+    pozycja_jedzenia_x = random.randint(5, rozmiar_planszy_x - 5)
+    pozycja_jedzenia_y = random.randint(5, rozmiar_planszy_y - 5)
+    kolor_kulki = (200, 0, 0)
     pygame.draw.circle(screen, kolor_kulki, (pozycja_jedzenia_x, pozycja_jedzenia_y), 3, 0)
     pygame.display.flip()
 
@@ -51,7 +55,7 @@ def wyswietl_punkty(ilosc_punktow):
 
 
 # przygotowujemy poczatkowy ekran gry:
-screen = pygame.display.set_mode((1000, 800))  # przygotowanie nowego ekranu o wymiarach 600x600
+screen = pygame.display.set_mode((800, 800))  # przygotowanie nowego ekranu o wymiarach 600x600
 pygame.display.set_caption('Zjadacz')  # ustawiamy etykietke okna
 screen.fill(kolor_ekranu)  # wypelniamy ekran kolorem zielonym
 pokaz_jedzenie()  # pokazujemy pierwsza kropke do zjedzenia
@@ -59,6 +63,7 @@ pygame.display.flip()  # odswiezamy ekran, zeby zobaczyc zmiany, ktore wprowadzi
 
 # obsluga programu za pomoca klawiatury - tu mowimy programowi co ma zrobic jesli zostanie nacisniety ktorys przycisk
 running = True
+rusz_zjadaczem(0, 0)
 while running:
     wyswietl_punkty(punkty)
     for event in pygame.event.get():
