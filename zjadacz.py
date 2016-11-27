@@ -7,7 +7,7 @@ import random
 pozycja_zjadacza_x = 30
 pozycja_zjadacza_y = 30
 
-#rozmiar planszy
+# rozmiar planszy
 rozmiar_planszy_x = 800
 rozmiar_planszy_y = 800
 
@@ -15,12 +15,14 @@ rozmiar_planszy_y = 800
 kolor_ekranu = (10, 150, 10)
 kolor_zjadacza = (255, 224, 0)
 kolor_tekstu = (10, 10, 10)
+kolor_tla_tekstu = (255, 255, 255)
 
-margines_bledu = 15
+srednica_zjadacza = 15
 punkty = 0
 
 
-# funkcja, ktora sprawi, ze zobaczymy w losowym miejscu jedzenie. Dzieki temu ze rozwiazanie jest zdefiniowane jako funkcja, bedziemy mogli uzywac go wiele razy, bez kopiowania kodu
+# funkcja, ktora sprawi, ze zobaczymy w losowym miejscu jedzenie.
+# Dzieki temu ze rozwiazanie jest zdefiniowane jako funkcja, bedziemy mogli uzywac go wiele razy, bez kopiowania kodu
 def pokaz_jedzenie():
     global pozycja_jedzenia_x
     global pozycja_jedzenia_y
@@ -31,25 +33,24 @@ def pokaz_jedzenie():
     pygame.display.flip()
 
 
-# funkcja, ktora rusza naszym zjadaczem. Ta funkcja przyjmuje zmienne - bedzie wiec dzialac inaczej, w zaleznosci od tego z jakimi liczbami ja wywolamy
-
-
+# funkcja, ktora rusza naszym zjadaczem.
+# Ta funkcja przyjmuje zmienne - bedzie wiec dzialac inaczej, w zaleznosci od tego z jakimi liczbami ja wywolamy
 def rusz_zjadaczem(zmiana_x, zmiana_y):
     global pozycja_zjadacza_x
     global pozycja_zjadacza_y
     # wymazujemy starego zjadacza, czyli w miejsce zoltej kulki rysujemy kulke w kolorze tla
-    pygame.draw.circle(screen, kolor_ekranu, (pozycja_zjadacza_x, pozycja_zjadacza_y), margines_bledu, 0)
+    pygame.draw.circle(screen, kolor_ekranu, (pozycja_zjadacza_x, pozycja_zjadacza_y), srednica_zjadacza, 0)
     # liczymy nowe miejsce zjadacza
     pozycja_zjadacza_x = pozycja_zjadacza_x + zmiana_x
     pozycja_zjadacza_y = pozycja_zjadacza_y + zmiana_y
     # rysujemy nowego zjadacza w nowej pozycji
-    pygame.draw.circle(screen, kolor_zjadacza, (pozycja_zjadacza_x, pozycja_zjadacza_y), margines_bledu, 0)
+    pygame.draw.circle(screen, kolor_zjadacza, (pozycja_zjadacza_x, pozycja_zjadacza_y), srednica_zjadacza, 0)
     pygame.display.flip()  # tak jak juz to robilismy wczesniej odswiezamy ekran, zeby zobaczyc zmiany
 
 
 # wyswietlanie punktow
 def wyswietl_punkty(ilosc_punktow):
-    pygame.draw.rect(screen, (255, 255, 255), (rozmiar_planszy_x - 90, 2, rozmiar_planszy_x, 15), 0)  # tlo dla punktow - zakrywa nam poprzedni text
+    pygame.draw.rect(screen, kolor_tla_tekstu, (rozmiar_planszy_x - 90, 2, rozmiar_planszy_x, 15), 0)  # tlo dla punktow - zakrywa nam poprzedni text
     pygame.font.init()  # inicjujemy czcionki
     font = pygame.font.Font(None, 24)  # wybieramy domyslna czcionke o rozmiarze 24
     text = font.render("Punkty: %s" % ilosc_punktow, 1, kolor_tekstu)  # chcemy wyswietlic zmienna punkty na ekranie
@@ -83,7 +84,7 @@ while running:
         rusz_zjadaczem(-1, 0)
     if pygame.key.get_pressed()[pygame.K_RIGHT]:
         rusz_zjadaczem(1, 0)
-    if ((pozycja_zjadacza_x - margines_bledu) < pozycja_jedzenia_x < (pozycja_zjadacza_x + margines_bledu)):
-        if ((pozycja_zjadacza_y - margines_bledu) < pozycja_jedzenia_y < (pozycja_zjadacza_y + margines_bledu)):
+    if ((pozycja_zjadacza_x - srednica_zjadacza) < pozycja_jedzenia_x < (pozycja_zjadacza_x + srednica_zjadacza)):
+        if ((pozycja_zjadacza_y - srednica_zjadacza) < pozycja_jedzenia_y < (pozycja_zjadacza_y + srednica_zjadacza)):
             punkty = punkty + 1
             pokaz_jedzenie()
