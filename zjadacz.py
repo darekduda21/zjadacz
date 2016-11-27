@@ -17,7 +17,7 @@ kolor_zjadacza = (255, 224, 0)
 kolor_tekstu = (10, 10, 10)
 kolor_tla_tekstu = (255, 255, 255)
 
-srednica_zjadacza = 15
+promien_zjadacza = 15
 punkty = 0
 
 
@@ -39,12 +39,12 @@ def rusz_zjadaczem(zmiana_x, zmiana_y):
     global pozycja_zjadacza_x
     global pozycja_zjadacza_y
     # wymazujemy starego zjadacza, czyli w miejsce zoltej kulki rysujemy kulke w kolorze tla
-    pygame.draw.circle(screen, kolor_ekranu, (pozycja_zjadacza_x, pozycja_zjadacza_y), srednica_zjadacza, 0)
+    pygame.draw.circle(screen, kolor_ekranu, (pozycja_zjadacza_x, pozycja_zjadacza_y), promien_zjadacza, 0)
     # liczymy nowe miejsce zjadacza
     pozycja_zjadacza_x = pozycja_zjadacza_x + zmiana_x
     pozycja_zjadacza_y = pozycja_zjadacza_y + zmiana_y
     # rysujemy nowego zjadacza w nowej pozycji
-    pygame.draw.circle(screen, kolor_zjadacza, (pozycja_zjadacza_x, pozycja_zjadacza_y), srednica_zjadacza, 0)
+    pygame.draw.circle(screen, kolor_zjadacza, (pozycja_zjadacza_x, pozycja_zjadacza_y), promien_zjadacza, 0)
     pygame.display.flip()  # tak jak juz to robilismy wczesniej odswiezamy ekran, zeby zobaczyc zmiany
 
 
@@ -74,17 +74,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    if pygame.key.get_pressed()[pygame.K_ESCAPE]:
-        running = False
     if pygame.key.get_pressed()[pygame.K_DOWN]:
         rusz_zjadaczem(0, 1)
-    if pygame.key.get_pressed()[pygame.K_UP]:
-        rusz_zjadaczem(0, -1)
-    if pygame.key.get_pressed()[pygame.K_LEFT]:
-        rusz_zjadaczem(-1, 0)
-    if pygame.key.get_pressed()[pygame.K_RIGHT]:
-        rusz_zjadaczem(1, 0)
-    if ((pozycja_zjadacza_x - srednica_zjadacza) < pozycja_jedzenia_x < (pozycja_zjadacza_x + srednica_zjadacza)):
-        if ((pozycja_zjadacza_y - srednica_zjadacza) < pozycja_jedzenia_y < (pozycja_zjadacza_y + srednica_zjadacza)):
+    if ((pozycja_zjadacza_x - promien_zjadacza) < pozycja_jedzenia_x < (pozycja_zjadacza_x + promien_zjadacza)):
+        if ((pozycja_zjadacza_y - promien_zjadacza) < pozycja_jedzenia_y < (pozycja_zjadacza_y + promien_zjadacza)):
             punkty = punkty + 1
             pokaz_jedzenie()
