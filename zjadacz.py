@@ -73,7 +73,7 @@ def wyswietl_czas():
         text = font.render("Czas: %s" % czas_gry, 1, kolor_tekstu)  # chcemy wyswietlic zmienna punkty na ekranie
         # zamiast odswiezania ekranu uzywamy funkcji blit, jej zmienna jest pozycja w ktorej chcemy zamiescic tekst
         screen.blit(text, (rozmiar_planszy_x - 90, 17))
-        pygame.display.flip()  # odswiezamy ekran, zeby zobaczyc zmiany, ktore wprowadzilismy powyzej
+        pygame.display.update((rozmiar_planszy_x - 90, 18, rozmiar_planszy_x, 25))  # odswiezamy ekran, zeby zobaczyc zmiany, ktore wprowadzilismy powyzej
 
 # przygotowujemy poczatkowy ekran gry:
 screen = pygame.display.set_mode((rozmiar_planszy_x, rozmiar_planszy_y))  # przygotowanie nowego ekranu o wymiarach 600x600
