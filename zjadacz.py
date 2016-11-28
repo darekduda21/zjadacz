@@ -54,7 +54,7 @@ def rusz_zjadaczem(zmiana_x, zmiana_y):
 
 # wyswietlanie punktow
 def wyswietl_punkty(ilosc_punktow):
-    pygame.draw.rect(screen, kolor_tla_tekstu, (rozmiar_planszy_x - 90, 2, rozmiar_planszy_x, 15), 0)  # tlo dla punktow - zakrywa nam poprzedni text
+    pygame.draw.rect(screen, kolor_tla_tekstu, (rozmiar_planszy_x - 90, 2, rozmiar_planszy_x, 16), 0)  # tlo dla punktow - zakrywa nam poprzedni text
     pygame.font.init()  # inicjujemy czcionki
     font = pygame.font.Font(None, 24)  # wybieramy domyslna czcionke o rozmiarze 24
     text = font.render("Punkty: %s" % ilosc_punktow, 1, kolor_tekstu)  # chcemy wyswietlic zmienna punkty na ekranie
