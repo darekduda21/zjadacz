@@ -86,6 +86,8 @@ wyswietl_czas()
 rusz_zjadaczem(0, 0) # wyswietlamy zjadacza przed rozpoczeciem
 
 # obsluga programu za pomoca klawiatury - tu mowimy programowi co ma zrobic jesli zostanie nacisniety ktorys przycisk
+pygame.mixer.init()
+pygame.mixer.music.load('Eating-SoundBible.com-1470347575.mp3')
 running = True
 while running:
     wyswietl_punkty(punkty)
@@ -106,4 +108,6 @@ while running:
     if ((pozycja_zjadacza_x - srednica_zjadacza) < pozycja_jedzenia_x < (pozycja_zjadacza_x + srednica_zjadacza)):
         if ((pozycja_zjadacza_y - srednica_zjadacza) < pozycja_jedzenia_y < (pozycja_zjadacza_y + srednica_zjadacza)):
             punkty = punkty + 1
+            pygame.mixer.music.play()
+            pygame.mixer.music.rewind()
             pokaz_jedzenie()
